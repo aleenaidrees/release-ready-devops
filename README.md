@@ -74,6 +74,20 @@ This pipeline supports multiple rollback strategies to ensure safe releases:
 
 The fastest rollback approach is re-deploying a previous artefact, as it avoids rebuilding and ensures a known stable version is restored immediately.
 
+## Advanced DevOps Controls
+
+### Infrastructure as Code
+Terraform is used to define part of the deployment environment declaratively. The CI workflow runs Terraform init, validate and plan so infrastructure changes can be checked before release. Terraform apply is intentionally not automated, reducing the risk of unsafe infrastructure changes being deployed without review.
+
+### Secret Management
+Secrets are not stored in source code. Runtime values are provided through GitHub Actions secrets, while `.env.example` documents the expected configuration format safely. In a production team, this would be extended using a managed secret service such as Google Secret Manager or Azure Key Vault, with access restricted by role.
+
+### Operational Visibility
+ReleaseReady exposes a `/health` endpoint for basic service health and a `/version` endpoint for release tracking. The application also writes meaningful runtime logs to stdout, supporting diagnosis after deployment.
+
+### Release Safety
+Staging deployments run automatically, while production deployments require manual approval using GitHub Environments. This creates a controlled release gate and reduces the chance of unsafe changes reaching production.
+
 ---
 
 ## Author
