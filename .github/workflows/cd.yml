@@ -1,0 +1,31 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t releaseready .
+
+      - name: Simulate deployment to staging
+        run: echo "Deploying to STAGING environment..."
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Simulate deployment to production
+        run: echo "Deploying to PRODUCTION environment..."
