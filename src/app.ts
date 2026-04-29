@@ -1,12 +1,19 @@
 import express from "express";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.send("ReleaseReady is running");
+});
 
 app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
+  console.log("Health check requested");
+  res.status(200).json({ status: "ok" });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`ReleaseReady server running on port ${PORT}`);
 });
+
+export default app;
