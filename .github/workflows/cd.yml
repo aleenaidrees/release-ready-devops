@@ -7,17 +7,20 @@ on:
 
 jobs:
   deploy-staging:
-    runs-on: ubuntu-latest
-    environment: staging
+  runs-on: ubuntu-latest
+  environment: staging
 
-    steps:
-      - uses: actions/checkout@v4
+  env:
+    DB_URL: ${{ secrets.DB_URL }}
 
-      - name: Build Docker image
-        run: docker build -t releaseready .
+  steps:
+    - uses: actions/checkout@v4
 
-      - name: Simulate deployment to staging
-        run: echo "Deploying to STAGING environment..."
+    - name: Build Docker image
+      run: docker build -t releaseready .
+
+    - name: Simulate deployment to staging
+      run: echo "Deploying to STAGING environment..."
 
   deploy-production:
     runs-on: ubuntu-latest
