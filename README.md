@@ -65,6 +65,15 @@ On every push and pull request, the pipeline:
 GET /health  
 Returns: { "status": "ok" }
 
+## Rollback Strategy
+
+This pipeline supports multiple rollback strategies to ensure safe releases:
+
+- **Re-deploy previous version**: A previously successful build can be redeployed quickly to restore system stability.
+- **Git revert**: Faulty changes can be reverted using version control, triggering a new deployment pipeline run.
+
+The fastest rollback approach is re-deploying a previous artefact, as it avoids rebuilding and ensures a known stable version is restored immediately.
+
 ---
 
 ## Author
