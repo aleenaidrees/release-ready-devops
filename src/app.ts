@@ -11,10 +11,17 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  console.log("Health check requested");
+  console.log(`[INFO] Health check at ${new Date().toISOString()}`);
   res.status(200).json({
     status: "ok",
     environment: ENVIRONMENT,
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get("/metrics", (req, res) => {
+  res.json({
+    uptime: process.uptime(),
     timestamp: new Date().toISOString()
   });
 });

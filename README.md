@@ -90,5 +90,30 @@ Staging deployments run automatically, while production deployments require manu
 
 ---
 
+---
+
+## Rollback Strategy
+
+The pipeline supports multiple rollback strategies:
+
+- Re-deploy previous artefact: A known stable container image can be redeployed immediately without rebuilding.
+- Git revert: Faulty changes can be reverted and redeployed through the pipeline.
+- Environment gating: Production requires manual approval, preventing unsafe releases.
+
+The fastest rollback method is re-deploying a previous artefact.
+
+---
+
+## Advanced DevOps Controls
+
+### Infrastructure as Code
+Terraform defines infrastructure declaratively. CI runs validate and plan to prevent unsafe changes.
+
+### Secret Management
+Secrets are stored in GitHub Actions and not in code. In production, tools like Azure Key Vault would be used.
+
+### Operational Visibility
+The system exposes /health and /metrics endpoints and logs activity to stdout for monitoring.
+
 ## Author
 Aleena Idrees
